@@ -2,19 +2,29 @@
  * @param {Function} fn
  * @return {Function}
  */
-function memoize(fn) {
-   const cache = new Map();
+
+
+ function memoize(fn) {
+    let memo = Object.create(null)
     return function(...args) {
-       const key = JSON.stringify(args);
-       if (cache.has(key)) {
-         return cache.get(key);
-       } 
-       const result = fn(...args); 
-         
-       cache.set(key, result);
-       return result;
+        const key = args.toString()
+        memo[key] = memo[key] ?? fn(...args)
+        return memo[key]
     }
 }
+// function memoize(fn) {
+//    const cache = new Map();
+//     return function(...args) {
+//        const key = JSON.stringify(args);
+//        if (cache.has(key)) {
+//          return cache.get(key);
+//        } 
+//        const result = fn(...args); 
+         
+//        cache.set(key, result);
+//        return result;
+//     }
+// }
 
 
 /** 
